@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <!--Question8. **132 Pattern**
+
+Given an array of `n` integers `nums`, a **132 pattern** is a subsequence of three integers `nums[i]`, `nums[j]` and `nums[k]` such that `i < j < k` and `nums[i] < nums[k] < nums[j]`.
+
+Return `true` *if there is a **132 pattern** in* `nums`*, otherwise, return* `false`*.*
+
+**Example 1:**
+
+ Input: nums = [1,2,3,4]
+Output: false-->
+    <script>
+        function find132pattern(nums) {
+  const stack = [];
+  let second = -Infinity;
+
+  for (let i = nums.length - 1; i >= 0; i--) {
+    if (nums[i] < second) {
+      return true;
+    }
+    
+    while (stack.length > 0 && nums[i] > stack[stack.length - 1]) {
+      second = stack.pop();
+    }
+    
+    stack.push(nums[i]);
+  }
+  
+  return false;
+}
+
+// Example usage:
+const nums = [1, 2,3,4];
+console.log(find132pattern(nums)); // Output: true
+
+    </script>
+</body>
+</html>

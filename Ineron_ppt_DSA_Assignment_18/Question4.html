@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function maximumGap(nums) {
+  const n = nums.length;
+
+  if (n < 2) {
+    return 0;
+  }
+  let maxNum = Math.max(...nums);
+  let exp = 1;
+  const sortedArray = [...nums];
+
+  while (maxNum / exp >= 1) {
+    const count = new Array(10).fill(0);
+    for (let i = 0; i < n; i++) {
+      const digit = Math.floor((sortedArray[i] / exp) % 10);
+      count[digit]++;
+    }
+    for (let i = 1; i < 10; i++) {
+      count[i] += count[i - 1];
+    }
+    for (let i = n - 1; i >= 0; i--) {
+      const digit = Math.floor((sortedArray[i] / exp) % 10);
+      const index = count[digit] - 1;
+      const temp = sortedArray[index];
+      sortedArray[index] = sortedArray[i];
+      sortedArray[i] = temp;
+      count[digit]--;
+    }
+
+    exp *= 10;}
+  let maxGap = 0;
+  for (let i = 1; i < n; i++) {
+    const gap = sortedArray[i] - sortedArray[i - 1];
+    maxGap = Math.max(maxGap, gap);
+  }
+
+  return maxGap;
+}
+const nums = [3, 6, 9, 1];
+console.log(maximumGap(nums)); // Output: 3
+
+    </script>
+</body>
+</html>
